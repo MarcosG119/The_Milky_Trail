@@ -10,95 +10,16 @@
 </head>
 <body>
   <h1>Space Trail</h1>
-  <p>Guide your spaceship and crew through the challenges of outer space!</p>
-  <button id="startButton">Start Journey</button>
+  <button onclick="startJourney()">Start Journey</button>
+  <div id="crewCreation" style="display:none;">
+    <h2>Create Your Crew</h2>
+    <input type="text" id="crewMember1" placeholder="Crew Member 1">
+    <input type="text" id="crewMember2" placeholder="Crew Member 2">
+    <input type="text" id="crewMember3" placeholder="Crew Member 3">
+    <input type="text" id="crewMember4" placeholder="Crew Member 4">
+    <button onclick="setCrewNames()">Continue</button>
+  </div>
   <div id="gameLog"></div>
-
-  <script>
-    const gameLogElement = document.getElementById('gameLog');
-    const startButton = document.getElementById('startButton');
-    let crewMembers = 0;
-    let distanceTraveled = 0;
-
-    startButton.addEventListener('click', startJourney);
-
-    function startJourney() {
-      gameLogElement.innerHTML = '';
-      crewMembers = prompt("How many crewmembers?");
-      logMessage('Your space journey begins!');
-      distanceTraveled = 0;
-      simulateJourney();
-    }
-
-    function logMessage(message) {
-      const messageElement = document.createElement('p');
-      messageElement.textContent = message;
-      gameLogElement.appendChild(messageElement);
-      console.log(crewMembers);
-    }
-
-    function simulateJourney() {
-      const eventChance = Math.random();
-
-      if (eventChance < 0.2) {
-        handleSpacePirates();
-      } else if (eventChance < 0.4) {
-        handleAsteroidField();
-      } else {
-        continueTravel();
-      }
-    }
-
-    function handleSpacePirates() {
-      logMessage('Space pirates attack! You must fight them off.');
-      const victory = Math.random() > 0.5;
-
-      if (victory) {
-        logMessage('You defeated the space pirates and continue your journey.');
-        continueTravel();
-      } else {
-        logMessage('You were captured by the space pirates.');
-        crewMembers -= 1;
-        if (crewMembers <= 0) {
-          logMessage('All crew members are captured. Game over.');
-          startButton.disabled = false;
-        } else {
-          logMessage(`You have ${crewMembers} crew members remaining.`);
-          continueTravel();
-        }
-      }
-    }
-
-    function handleAsteroidField() {
-      logMessage('You encountered an asteroid field. Maneuver through it carefully.');
-      const success = Math.random() > 0.3;
-
-      if (success) {
-        logMessage('You safely navigated through the asteroid field.');
-        continueTravel();
-      } else {
-        logMessage('Your spaceship sustained damage from the asteroids.');
-        crewMembers -= 1;
-        if (crewMembers <= 0) {
-          logMessage('Your spaceship was critically damaged. Game over.');
-          startButton.disabled = false;
-        } else {
-          logMessage(`You have ${crewMembers} crew members remaining.`);
-          continueTravel();
-        }
-      }
-    }
-
-    function continueTravel() {
-      distanceTraveled += 100;
-      logMessage(`You've traveled ${distanceTraveled} light-years.`);
-      if (distanceTraveled >= 1000) {
-        logMessage('Congratulations! You completed your space journey.');
-        startButton.disabled = false;
-      } else {
-        simulateJourney();
-      }
-    }
-  </script>
+  <script src="game.js"></script>
 </body>
 </html>
